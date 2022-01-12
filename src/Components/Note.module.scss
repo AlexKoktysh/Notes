@@ -1,0 +1,25 @@
+.card {
+    border: 1px solid rgb(64, 122, 72);
+    padding: 20px;
+    height: 300px;
+    max-width: 300px;
+    margin-bottom: 10px;
+    .text {
+        height: 150px;
+        text-align: center;
+        width: 100%;
+        border: 1px solid green;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+        margin-bottom: 20px;
+    }
+    .button {
+        display: flex;
+        justify-content: space-evenly;
+        border: 1px solid red;
+        padding: 10px 50px;
+    }
+}
