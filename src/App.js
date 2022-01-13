@@ -1,17 +1,22 @@
+import { connect } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import './App.scss'
 import Home from './Components/Home'
 import Note from './Components/Note'
 
-function App() {
+function App(props) {
   return (
     <div>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/note' element={<Note />} />
-      </Routes>
+        <Routes>
+          <Route path='/' element={<Home data={props}/>} />
+          <Route path='/note' element={<Note />} />
+        </Routes>
     </div>
   )
 }
 
-export default App
+const mapStateToProps = (state) => {
+  return state
+}
+
+export default connect(mapStateToProps, {})(App)

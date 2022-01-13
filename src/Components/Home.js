@@ -3,6 +3,7 @@ import Note from './Note'
 import styles from './Home.module.scss'
 
 const Home = (props) => {
+    debugger
     return (
         <div className={styles.home}>
             <h2>HOME</h2>
