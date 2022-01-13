@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.scss'
 import Home from './Components/Home'
 import Note from './Components/Note'
+import { addNote, updateNote } from './notesReducer'
 
 function App(props) {
   return (
@@ -19,4 +20,4 @@ const mapStateToProps = (state) => {
   return state
 }
 
-export default connect(mapStateToProps, {})(App)
+export default connect(mapStateToProps, {addNote, updateNote})(App)
