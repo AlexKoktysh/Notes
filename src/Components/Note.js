@@ -50,15 +50,15 @@ const Note = (props) => {
             <div>
                 <span><h3>{props.data.title}</h3></span>
                 <span className={styles.text}>{props.data.text || ''}</span>
-                <div className={styles.button}>
+                <div className={styles.buttons}>
                     <button disabled={editMode} onClick={() => setEditMode(true)}>EDIT</button>
-                    <button onClick={() => props.deleteNote(props.data.id)}>DELETE</button>
+                    <button className={styles.delete} onClick={() => props.deleteNote(props.data.id)}>DELETE</button>
                 </div>
             </div>
             : <div>
                 <input onChange={onNoteChangeTitle} onBlur={onNoteChangeTitle} value={title}></input>
                 <input className={styles.text} onChange={onNoteChange} autoFocus={true} onBlur={onNoteChange} value={text}></input>
-                <div className={styles.button}>
+                <div className={styles.buttons}>
                     <button disabled={!editMode} onClick={onSubmit}>SAVE</button>
                     <button onClick={() => setEditMode(false)}>CANCEL</button>
                 </div>

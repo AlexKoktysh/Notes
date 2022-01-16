@@ -2,24 +2,29 @@
     border: 1px solid rgb(64, 122, 72);
     padding: 20px;
     height: 300px;
-    max-width: 350px;
+    width: 350px;
     margin-bottom: 10px;
+    background-color: rgb(248, 240, 229);
+    text-align: center;
     .text {
         height: 150px;
         text-align: center;
         width: 100%;
-        border: 1px solid green;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 6;
         -webkit-box-orient: vertical;
-        margin-bottom: 20px;
+        margin-top: 20px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
-    .button {
+    .buttons {
         display: flex;
         justify-content: space-evenly;
-        border: 1px solid red;
-        padding: 10px 50px;
+        padding: 20px 10px;
+    }
+    .delete {
+        background-color: rgb(228, 115, 200);
+        color: rgb(43, 42, 40);;
     }
 }

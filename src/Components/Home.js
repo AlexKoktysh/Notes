@@ -19,27 +19,36 @@ const Home = (props) => {
 
     return (
         <div className={styles.home}>
-            <h2>HOME</h2>
-            <div className={styles.btn_circle}>
-                <button onClick={add}>ADD</button>
-            </div>
             <div>
-                <form>
-                    <input 
-                        type='text'
-                        placeholder='Search tag'
-                        onChange={(event) => setValueSearch(event.currentTarget.value)}
-                    />
-                </form>
-            </div>
-            <div className={styles.notes_list}>
                 {addMode
-                ? <Note addNote={props.data.addNote}
-                                setAddMode={setAddMode}
-                                addMode={addMode}
-                                data={{}} 
-                                /> 
-                :  notes}
+                ?   <div>
+                        <h2>Add new note</h2>
+                        <div className={styles.notes_list}>
+                            <Note addNote={props.data.addNote}
+                                  setAddMode={setAddMode}
+                                  addMode={addMode}
+                                  data={{}} /> 
+                        </div> 
+                    </div>   
+                :   <div className={styles.list}>
+                        <h2>List of notes</h2>
+                        <div>
+                            <form className={styles.form} >
+                                <input 
+                                    type='text'
+                                    placeholder='Search tag'
+                                    onChange={(event) => setValueSearch(event.currentTarget.value)}
+                                />
+                            </form>
+                        </div>
+                        <div>
+                            <button className={styles.button} onClick={add}>ADD</button>
+                        </div>
+                        <div className={styles.notes_list}>
+                            {notes}
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     )
