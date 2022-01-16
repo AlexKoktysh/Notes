@@ -5,16 +5,29 @@ import styles from './Note.module.scss'
 const Note = (props) => {
     const [editNote, setEditNote] = useState(false)
     const [text, setNote] = useState(props.text)
-    
-    const activateEdit = () => {
-        setEditNote(true)
-        console.log('активация', editNote)
+
+    console.log(props.text, editNote)
+
+    const addNewNote = () => {
+        props.addNote(text)
+        props.setAddNote(false)
     }
 
-    const deactivateEdit = () => {
+    const onSubmit = () => {
+        console.log('submit', props.addMode)
+        props.addMode 
+        ? addNewNote()
+        : updateNote()
+    }
+    
+    const activateEdit = () => {
+        console.log('активация')
+        setEditNote(true)
+    }
+
+    const updateNote = () => {
         props.updateNote(props.id, text)
         setEditNote(false)
-        console.log('деактивация', editNote)
     }
 
     const onNoteChange = (e) => {
@@ -25,22 +38,23 @@ const Note = (props) => {
         setNote(props.text)
     }, [props.text])
 
+
     return (
         <div className={styles.card}>
-            <h3>Title</h3>
+            <h3>{props.title}</h3>
             {!editNote
             ? <div>
-                <span className={styles.text} onDoubleClick={activateEdit}>{props.text}</span>
+                <span className={styles.text}>{props.text}</span>
                 <div className={styles.button}>
-                            <Button disabled={editNote} onClick={activateEdit}>EDIT</Button>
-                            <Button>DELETE</Button>
+                    <Button disabled={editNote} onClick={activateEdit}>EDIT</Button>
+                    <Button>DELETE</Button>
                 </div>
             </div>
             : <div>
-                <input className={styles.text} onChange={onNoteChange} autoFocus={true} onBlur={deactivateEdit} value={text}></input>
+                <input className={styles.text} onChange={onNoteChange} autoFocus={true} onBlur={updateNote} value={text}></input>
                 <div className={styles.button}>
-                            <Button disabled={!editNote} onClick={deactivateEdit}>SAVE</Button>
-                            <Button>CANCEL</Button>
+                    <Button disabled={!editNote} onClick={onSubmit}>SAVE</Button>
+                    <Button>CANCEL</Button>
                 </div>
             </div>
             }

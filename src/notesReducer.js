@@ -1,6 +1,7 @@
 const ADD_NOTE = 'ADD-NOTE'
 const EDIT_NOTE = 'EDIT-NOTE'
 const SET_NOTE = 'DET-NOTE'
+const DELETE_NOTE = 'DELETE-NOTE'
 
 const initialState = require('./data.json')
 
@@ -9,7 +10,7 @@ const notesReducer = (state = initialState, action) => {
         case ADD_NOTE: 
             return {
                 ...state,
-                notes: [...state.notes, {id: action.id, text: action.text}]
+                notes: [...state.notes, {id: state.notes.length + 1, text: action.text}]
             }
         case EDIT_NOTE:
             return {
@@ -20,31 +21,57 @@ const notesReducer = (state = initialState, action) => {
                     }
                     return el 
                 } )
-            }    
+            }
+        // case DELETE_NOTE:
+        //     return {
+        //         ...state,
+        //         notes: state.notes.filter(el => {
+        //             el.id !== action.id
+        //         })
+        //     }     
         default: 
             return state
     }
 }
 
-const setNote = (id, text) => {
+const setNote = (id, text, title) => {
     return {
         type: EDIT_NOTE,
         id,
-        text
+        text,
+        title
     }
 }
 
-export const updateNote = (id, text) => {
-    return (dispatch) => {
-        dispatch(setNote(id, text))
+const deleteElement = (id) => {
+    return {
+        type: DELETE_NOTE,
+        id
     }
 }
 
-export const addNote = (id, text) => {
+const addElement = (text) => {
     return {
         type: ADD_NOTE,
-        id,
         text
+    }
+}
+
+export const updateNote = (id, text, title) => {
+    return (dispatch) => {
+        dispatch(setNote(id, text, title))
+    }
+}
+
+export const deleteNote = (id) => {
+    return (dispatch) => {
+        dispatch(deleteElement(id))
+    }
+}
+
+export const addNote = (text) => {
+    return (dispatch) => {
+        dispatch(addElement(text))
     }
 }
 

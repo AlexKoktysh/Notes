@@ -2,23 +2,28 @@
     "notes": [
         {
             "id": 1,
-            "text": "My name is Sasha"
+            "text": "My name is Sasha",
+            "title": "Name"
         },
         {
             "id": 2,
-            "text": "I am from Belarus"
+            "text": "I am from Belarus",
+            "title": "Contry"
         },
         {
             "id": 3,
-            "text": "Minsk is the capital of Belarus"
+            "text": "Minsk is the capital of Belarus",
+            "title": "City"
         },
         {
             "id": 4,
-            "text": "I am 28 yers"
+            "text": "I am 28 yers",
+            "title": "Year"
         },
         {
             "id": 5,
-            "text": "I am programmer"
+            "text": "I am programmer",
+            "title": "Profession"
         }
     ]
 }
