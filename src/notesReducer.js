@@ -10,7 +10,7 @@ const notesReducer = (state = initialState, action) => {
         case ADD_NOTE: 
             return {
                 ...state,
-                notes: [...state.notes, {id: state.notes.length + 1, text: action.text}]
+                notes: [...state.notes, {id: state.notes.length + 1, text: action.text, title: action.title}]
             }
         case EDIT_NOTE:
             return {
@@ -18,17 +18,18 @@ const notesReducer = (state = initialState, action) => {
                 notes: state.notes.map(el => {
                     if (el.id === action.id) {
                         el.text = action.text
+                        el.title = action.title
                     }
                     return el 
                 } )
             }
-        // case DELETE_NOTE:
-        //     return {
-        //         ...state,
-        //         notes: state.notes.filter(el => {
-        //             el.id !== action.id
-        //         })
-        //     }     
+        case DELETE_NOTE:
+            return {
+                ...state,
+                notes: state.notes.filter(el => {
+                    return el.id !== action.id
+                })
+            }     
         default: 
             return state
     }
@@ -50,10 +51,11 @@ const deleteElement = (id) => {
     }
 }
 
-const addElement = (text) => {
+const addElement = (text, title) => {
     return {
         type: ADD_NOTE,
-        text
+        text,
+        title
     }
 }
 
@@ -69,9 +71,9 @@ export const deleteNote = (id) => {
     }
 }
 
-export const addNote = (text) => {
+export const addNote = (text, title) => {
     return (dispatch) => {
-        dispatch(addElement(text))
+        dispatch(addElement(text, title))
     }
 }
 

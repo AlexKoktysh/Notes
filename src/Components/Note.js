@@ -1,60 +1,66 @@
 import React, { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
 import styles from './Note.module.scss'
 
 const Note = (props) => {
-    const [editNote, setEditNote] = useState(false)
-    const [text, setNote] = useState(props.text)
-
-    console.log(props.text, editNote)
+    const [editMode, setEditMode] = useState(props.addMode)
+    const [text, setNote] = useState(props.data ? props.data.text : '')
+    const [title, setTitle] = useState(props.data ? props.data.title : '')
 
     const addNewNote = () => {
-        props.addNote(text)
-        props.setAddNote(false)
+        props.addNote(text, title)
+        props.setAddMode(false)
+        props.setEditMode(false)
     }
 
     const onSubmit = () => {
-        console.log('submit', props.addMode)
         props.addMode 
         ? addNewNote()
         : updateNote()
     }
-    
-    const activateEdit = () => {
-        console.log('активация')
-        setEditNote(true)
-    }
 
     const updateNote = () => {
-        props.updateNote(props.id, text)
-        setEditNote(false)
+        props.updateNote(props.data.id, text, title)
+        setEditMode(false)
     }
 
     const onNoteChange = (e) => {
         setNote(e.currentTarget.value)
     }
 
-    useEffect( () => {
-        setNote(props.text)
-    }, [props.text])
+    const onNoteChangeTitle = (e) => {
+        setTitle(e.currentTarget.value)
+    }
 
+    useEffect( () => {
+        setTitle(props.data.title)
+    }, [props.data.title])
+
+    useEffect( () => {
+        setNote(props.data.text)
+    }, [props.data.text])
+
+    useEffect( () => {
+        setEditMode(props.addMode)
+    }, [props.addMode])
 
     return (
         <div className={styles.card}>
-            <h3>{props.title}</h3>
-            {!editNote
-            ? <div>
-                <span className={styles.text}>{props.text}</span>
+            {!editMode
+            ?
+            <div>
+                <span><h3>{props.data.title}</h3></span>
+                <span className={styles.text}>{props.data.text || ''}</span>
                 <div className={styles.button}>
-                    <Button disabled={editNote} onClick={activateEdit}>EDIT</Button>
-                    <Button>DELETE</Button>
+                    <button disabled={editMode} onClick={() => setEditMode(true)}>EDIT</button>
+                    <button onClick={() => props.deleteNote(props.data.id)}>DELETE</button>
                 </div>
             </div>
             : <div>
-                <input className={styles.text} onChange={onNoteChange} autoFocus={true} onBlur={updateNote} value={text}></input>
+                <input onChange={onNoteChangeTitle} onBlur={onNoteChangeTitle} value={title}></input>
+                <input className={styles.text} onChange={onNoteChange} autoFocus={true} onBlur={onNoteChange} value={text}></input>
                 <div className={styles.button}>
-                    <Button disabled={!editNote} onClick={onSubmit}>SAVE</Button>
-                    <Button>CANCEL</Button>
+                    <button disabled={!editMode} onClick={onSubmit}>SAVE</button>
+                    <button onClick={() => setEditMode(false)}>CANCEL</button>
                 </div>
             </div>
             }

@@ -3,24 +3,19 @@ import Note from './Note'
 import styles from './Home.module.scss'
 
 const Home = (props) => {
-    const [addNoteMode, setAddNote] = useState(false)
-    const notes = props.data.notes.notes
+    const [addMode, setAddMode] = useState(false)
+    const [valueSearch, setValueSearch] = useState('')
     
     const add = () => {
-        setAddNote(true)
+        setAddMode(true)
     }
 
-    const [value, setValue] = useState('')
-
-    const filteredNote = notes.filter(note => {
-        return note.text.toLowerCase().includes(value.toLowerCase())
-    })
-
-    const fNotes = filteredNote.map(note => <Note id={note.id} 
-        text={note.text} 
-        title={note.title}
-        deleteNote={props.data.deleteNote} 
-        updateNote={props.data.updateNote} />)
+    const notes = props.data.notes.notes.filter(note => {
+        return note.text.toLowerCase().includes(valueSearch.toLowerCase())
+    }).map(note => <Note data={note} 
+                        deleteNote={props.data.deleteNote} 
+                        updateNote={props.data.updateNote}
+                        />)
 
     return (
         <div className={styles.home}>
@@ -33,15 +28,18 @@ const Home = (props) => {
                     <input 
                         type='text'
                         placeholder='Search tag'
-                        onChange={(event) => setValue(event.currentTarget.value)}
+                        onChange={(event) => setValueSearch(event.currentTarget.value)}
                     />
                 </form>
             </div>
             <div className={styles.notes_list}>
-                {addNoteMode ? <Note addNote={props.data.addNote}
-                                    addMode={addNoteMode} 
-                                    setAddNote={setAddNote} /> 
-                         :  fNotes}
+                {addMode
+                ? <Note addNote={props.data.addNote}
+                                setAddMode={setAddMode}
+                                addMode={addMode}
+                                data={{}} 
+                                /> 
+                :  notes}
             </div>
         </div>
     )
