@@ -17,6 +17,10 @@
         -webkit-box-orient: vertical;
         margin-top: 20px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        .tag {
+            color: rgb(228, 115, 200);
+            font-weight: bold;
+        }
     }
     .buttons {
         display: flex;
@@ -25,6 +29,6 @@
     }
     .delete {
         background-color: rgb(228, 115, 200);
-        color: rgb(43, 42, 40);;
+        color: rgb(43, 42, 40);
     }
 }

@@ -1,6 +1,5 @@
 const ADD_NOTE = 'ADD-NOTE'
 const EDIT_NOTE = 'EDIT-NOTE'
-const SET_NOTE = 'DET-NOTE'
 const DELETE_NOTE = 'DELETE-NOTE'
 
 const initialState = require('./data.json')
@@ -29,7 +28,7 @@ const notesReducer = (state = initialState, action) => {
                 notes: state.notes.filter(el => {
                     return el.id !== action.id
                 })
-            }     
+            }    
         default: 
             return state
     }

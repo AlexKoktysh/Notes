@@ -6,6 +6,15 @@ const Note = (props) => {
     const [text, setNote] = useState(props.data ? props.data.text : '')
     const [title, setTitle] = useState(props.data ? props.data.title : '')
 
+    const result = text   ? (text.split(' ').map(t => {
+                        const regex = new RegExp(/\#\w+/g)
+                        if (regex.test(t)) {
+                            t = <span className={styles.tag}>{t} </span>
+                        } else {t = <span>{t} </span>}
+                        return t
+                        }))
+                        : '' 
+                        
     const addNewNote = () => {
         props.addNote(text, title)
         props.setAddMode(false)
@@ -31,6 +40,12 @@ const Note = (props) => {
         setTitle(e.currentTarget.value)
     }
 
+    const cancel = () => {
+        setNote(props.data.text)
+        setTitle(props.data.title)
+        setEditMode(false)
+    }
+
     useEffect( () => {
         setTitle(props.data.title)
     }, [props.data.title])
@@ -49,7 +64,7 @@ const Note = (props) => {
             ?
             <div>
                 <span><h3>{props.data.title}</h3></span>
-                <span className={styles.text}>{props.data.text || ''}</span>
+                <span className={styles.text}>{!props.data ? '' : result}</span>
                 <div className={styles.buttons}>
                     <button disabled={editMode} onClick={() => setEditMode(true)}>EDIT</button>
                     <button className={styles.delete} onClick={() => props.deleteNote(props.data.id)}>DELETE</button>
@@ -60,7 +75,7 @@ const Note = (props) => {
                 <input className={styles.text} onChange={onNoteChange} autoFocus={true} onBlur={onNoteChange} value={text}></input>
                 <div className={styles.buttons}>
                     <button disabled={!editMode} onClick={onSubmit}>SAVE</button>
-                    <button onClick={() => setEditMode(false)}>CANCEL</button>
+                    <button onClick={cancel}>CANCEL</button>
                 </div>
             </div>
             }
