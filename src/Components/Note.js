@@ -5,16 +5,18 @@ const Note = (props) => {
     const [editMode, setEditMode] = useState(props.addMode)
     const [text, setNote] = useState(props.data ? props.data.text : '')
     const [title, setTitle] = useState(props.data ? props.data.title : '')
+    const tags = []
 
     const result = text   ? (text.split(' ').map(t => {
                         const regex = new RegExp(/\#\w+/g)
                         if (regex.test(t)) {
                             t = <span className={styles.tag}>{t} </span>
+                            tags.push(t.props.children[0])
                         } else {t = <span>{t} </span>}
                         return t
                         }))
                         : '' 
-                        
+    
     const addNewNote = () => {
         props.addNote(text, title)
         props.setAddMode(false)
@@ -65,6 +67,11 @@ const Note = (props) => {
             <div>
                 <span><h3>{props.data.title}</h3></span>
                 <span className={styles.text}>{!props.data ? '' : result}</span>
+                <div className={styles.delTag}>
+                    {tags.map(el => {
+                        return <span>{el}</span>
+                    })}
+                </div>
                 <div className={styles.buttons}>
                     <button disabled={editMode} onClick={() => setEditMode(true)}>EDIT</button>
                     <button className={styles.delete} onClick={() => props.deleteNote(props.data.id)}>DELETE</button>
@@ -73,9 +80,18 @@ const Note = (props) => {
             : <div>
                 <input onChange={onNoteChangeTitle} onBlur={onNoteChangeTitle} value={title}></input>
                 <input className={styles.text} onChange={onNoteChange} autoFocus={true} onBlur={onNoteChange} value={text}></input>
+                <div className={styles.delTag}>
+                    {tags.map(el => {
+                        return (
+                            <div>
+                                <span>{el}</span>
+                            </div>
+                        )
+                    })}
+                </div>
                 <div className={styles.buttons}>
                     <button disabled={!editMode} onClick={onSubmit}>SAVE</button>
-                    <button onClick={cancel}>CANCEL</button>
+                    <button className={styles.delete} onClick={cancel}>CANCEL</button>
                 </div>
             </div>
             }

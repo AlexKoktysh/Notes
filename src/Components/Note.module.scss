@@ -1,11 +1,19 @@
 .card {
     border: 1px solid rgb(64, 122, 72);
     padding: 20px;
-    height: 300px;
+    height: 550px;
     width: 350px;
     margin-bottom: 10px;
     background-color: rgb(248, 240, 229);
     text-align: center;
+    .delTag {
+        height: 200px;
+        margin-top: 40px;
+        background-color: rgb(68, 64, 59);
+        text-align: center;
+        color: rgb(228, 115, 200);
+        font-weight: bold;
+    }
     .text {
         height: 150px;
         text-align: center;
@@ -17,10 +25,6 @@
         -webkit-box-orient: vertical;
         margin-top: 20px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-        .tag {
-            color: rgb(228, 115, 200);
-            font-weight: bold;
-        }
     }
     .buttons {
         display: flex;
